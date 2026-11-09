@@ -1,0 +1,414 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    color: #e6edf5;
+
+    background:
+        radial-gradient(ellipse at 50% 10%, #263b55 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 90%, #172a40 0%, transparent 50%),
+        linear-gradient(135deg, #080e18, #101c2c 55%, #080e18);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 15px;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 28px;
+}
+
+.subtitle {
+    color: #8ca9c5;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(30px, 7vw, 48px);
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #eaf3ff;
+    text-shadow: 0 0 25px #80b8e455;
+}
+
+.description {
+    color: #9aadc0;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 22px auto;
+    color: #80b8e4;
+}
+
+.ornament::before,
+.ornament::after {
+    content: "";
+    height: 1px;
+    width: 85px;
+    background: linear-gradient(90deg, transparent, #668cae);
+}
+
+.ornament::after {
+    background: linear-gradient(90deg, #668cae, transparent);
+}
+
+/* Estatísticas */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: #172638cc;
+    border: 1px solid #7899b52b;
+    border-radius: 12px;
+    padding: 15px 8px;
+    box-shadow: 0 5px 20px #00000025;
+}
+
+.stat-label {
+    font-size: 10px;
+    color: #8da8c1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 23px;
+    color: #dceeff;
+}
+
+/* Tabuleiro */
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    perspective: 1000px;
+}
+
+.card {
+    height: 145px;
+    cursor: pointer;
+    perspective: 1000px;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(.2,.7,.3,1);
+}
+
+.card.flipped .card-inner,
+.card.matched .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* Verso da carta */
+
+.card-front {
+    background: radial-gradient(circle, #243e58 0%, #14283d 70%);
+    border: 1px solid #6f9cbd66;
+
+    box-shadow:
+        inset 0 0 20px #7ba6d015,
+        0 5px 15px #00000045;
+
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.card-front::before {
+    content: "✧";
+    font-family: 'Cinzel', serif;
+    font-size: 48px;
+    color: #a8c9e5;
+    text-shadow: 0 0 18px #91c9ff99;
+}
+
+.card:not(.flipped):not(.matched):hover .card-front {
+    border-color: #b0d9f4;
+    box-shadow: 0 0 20px #7db7e455;
+}
+
+/* Frente da carta */
+
+.card-back {
+    transform: rotateY(180deg);
+    flex-direction: column;
+
+    background: linear-gradient(145deg, #dce9f3, #9dbbd1);
+    border: 2px solid #c5e2f5;
+
+    box-shadow: 0 0 20px #8bbfe455;
+    padding: 8px;
+}
+
+.card-back img {
+    width: 100%;
+    height: 95px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 5px #253d5570);
+}
+
+.character-name {
+    color: #14283d;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.card.matched .card-back {
+    border-color: #a9dfc0;
+    box-shadow: 0 0 20px #77e0a055;
+    background: linear-gradient(145deg, #e0f3e8, #a9d5bd);
+}
+
+.card.matched {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Botões */
+
+.restart {
+    margin-top: 27px;
+    padding: 13px 30px;
+
+    border: 1px solid #83aaca;
+    border-radius: 7px;
+
+    background: linear-gradient(135deg, #243f59, #172b40);
+    color: #e4f2ff;
+
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.restart:hover {
+    background: #345674;
+    box-shadow: 0 0 20px #8bbfe455;
+    transform: translateY(-2px);
+}
+
+/* Tela de vitória */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    background: #050b13dd;
+    backdrop-filter: blur(7px);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    z-index: 10;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+    max-width: 400px;
+
+    padding: 38px 25px;
+
+    background: linear-gradient(145deg, #1c3045, #0e1b2a);
+    border: 1px solid #8db7d477;
+    border-radius: 16px;
+
+    box-shadow: 0 0 50px #6b9fc533;
+
+    animation: appear 0.5s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.victory-symbol {
+    font-size: 55px;
+    color: #b7dafa;
+    margin-bottom: 15px;
+}
+
+.modal h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    color: #e8f4ff;
+    margin-bottom: 12px;
+}
+
+.modal p {
+    color: #a5bbd0;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.result {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+
+    margin: 25px 0;
+    padding: 18px 5px;
+
+    border-top: 1px solid #7899b533;
+    border-bottom: 1px solid #7899b533;
+}
+
+.result strong {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 23px;
+    color: #d9edff;
+    margin-bottom: 5px;
+}
+
+.result span {
+    font-size: 10px;
+    color: #8da8c1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.modal .restart {
+    margin-top: 5px;
+}
+
+footer {
+    margin-top: 30px;
+    font-size: 10px;
+    color: #647d94;
+    letter-spacing: 1px;
+}
+
+/* Responsividade */
+
+@media (max-width: 500px) {
+
+    .board {
+        gap: 9px;
+    }
+
+    .card {
+        height: 120px;
+    }
+
+    .card-back img {
+        height: 75px;
+    }
+
+    .character-name {
+        font-size: 8px;
+    }
+
+    .card-front::before {
+        font-size: 38px;
+    }
+
+    .stats {
+        gap: 7px;
+    }
+
+    .stat {
+        padding: 12px 5px;
+    }
+
+    .stat-value {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .card {
+        height: 100px;
+    }
+
+    .card-back img {
+        height: 60px;
+    }
+
+    .board {
+        gap: 7px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

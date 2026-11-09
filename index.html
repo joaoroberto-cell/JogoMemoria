@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hollow Knight - Jogo da Memória</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header>
+            <p class="subtitle">Bem-vindo a Hallownest</p>
+
+            <h1>Hollow Knight</h1>
+
+            <p class="description">
+                Encontre os personagens escondidos do reino.
+            </p>
+
+            <div class="ornament">✦</div>
+        </header>
+
+        <!-- Estatísticas -->
+
+        <section class="stats">
+
+            <div class="stat">
+                <p class="stat-label">Jogadas</p>
+                <p class="stat-value" id="moves">0</p>
+            </div>
+
+            <div class="stat">
+                <p class="stat-label">Tempo</p>
+                <p class="stat-value" id="timer">00:00</p>
+            </div>
+
+            <div class="stat">
+                <p class="stat-label">Pares</p>
+                <p class="stat-value" id="progress">0 / 6</p>
+            </div>
+
+        </section>
+
+        <!-- Tabuleiro -->
+
+        <section class="board" id="board"></section>
+
+        <button class="restart" id="restart">
+            ↻ REINICIAR JOGO
+        </button>
+
+        <footer>
+            HALLLOWNEST · UMA JORNADA PELA MEMÓRIA
+        </footer>
+
+    </main>
+
+    <!-- Tela de vitória -->
+
+    <div class="overlay" id="overlay">
+
+        <div class="modal">
+
+            <div class="victory-symbol">✧</div>
+
+            <h2>Jornada Concluída!</h2>
+
+            <p>
+                Todos os personagens foram encontrados.
+                Hallownest agradece sua visita, viajante!
+            </p>
+
+            <div class="result">
+
+                <div>
+                    <strong id="finalMoves">0</strong>
+                    <span>Jogadas</span>
+                </div>
+
+                <div>
+                    <strong id="finalTime">00:00</strong>
+                    <span>Tempo</span>
+                </div>
+
+            </div>
+
+            <button class="restart" id="playAgain">
+                JOGAR NOVAMENTE
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
